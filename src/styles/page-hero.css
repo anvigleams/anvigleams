@@ -1,0 +1,6 @@
+/* Page hero banner — light, reused across inner pages */
+.page-hero {
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--border-light);
+  padding: 56px 24px 40px;
+}
