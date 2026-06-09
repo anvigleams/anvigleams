@@ -33,7 +33,7 @@ export default function ExpertSection() {
               width: '100%',
             }}>
               {/* Expert Photo */}
-              <div style={{ width: '100%', aspectRatio: '649/809', background: 'var(--bg-soft)' }}>
+              <div style={{ position: 'relative', width: '100%', aspectRatio: '649/809', background: 'var(--bg-soft)' }}>
                  <Image src="/expert-photo.webp" alt="Pramila Wakale" fill style={{ objectFit: 'cover' }} sizes="(max-width: 768px) 100vw, 320px" />
               </div>
 
