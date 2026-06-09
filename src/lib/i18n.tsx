@@ -26,8 +26,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('anvigleams_lang', newLang);
   };
 
-  const t = (key: string): string => {
-    return translations[lang][key] || translations['en'][key] || key;
+  const t = (key: string): any => {
+    return translations[lang][key] || translations['en'][key] || undefined;
   };
 
   return (
