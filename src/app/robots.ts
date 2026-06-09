@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://anvigleams.com/sitemap.xml',
+    sitemap: 'https://anvigleams.in/sitemap.xml',
   };
 }

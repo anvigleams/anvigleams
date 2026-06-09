@@ -44,6 +44,7 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     type: 'website',
   },
+  metadataBase: new URL('https://anvigleams.in'),
   icons: {
     icon: '/favicon.png',
   },
@@ -54,8 +55,8 @@ const medicalClinicSchema = {
   "@type": ["MedicalClinic", "LocalBusiness", "HealthAndBeautyBusiness"],
   "name": CLINIC_INFO.name,
   "description": "AnviGleams is the best skin care clinic in Sangamner. We specialize in Hydrafacial, Acne Treatment, Pigmentation Removal, and Skin Tightening.",
-  "image": "https://anvigleams.com/images/gallery1.png",
-  "url": "https://anvigleams.com",
+  "image": "https://anvigleams.in/images/gallery1.png",
+  "url": "https://anvigleams.in",
   "telephone": CLINIC_INFO.phone,
   "address": {
     "@type": "PostalAddress",

@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { TREATMENTS } from '@/lib/data';
 import { BLOG_POSTS } from '@/lib/blog';
 
-const BASE_URL = 'https://anvigleams.com';
+const BASE_URL = 'https://anvigleams.in';
 const TARGET_CITIES = ['sangamner', 'ahmednagar', 'nashik'];
 
 export default function sitemap(): MetadataRoute.Sitemap {
