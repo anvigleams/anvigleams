@@ -19,7 +19,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { 
     title: `${post.title} | AnviGleams Blog`, 
     description: post.excerpt,
-    keywords: post.keywords
+    keywords: post.keywords,
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
+    openGraph: {
+      title: `${post.title} | AnviGleams Blog`,
+      description: post.excerpt,
+      url: `/blog/${post.slug}`,
+      type: 'article',
+      publishedTime: post.date,
+      authors: [post.author],
+    }
   };
 }
 
@@ -32,9 +43,9 @@ export default async function BlogPostPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anvigleams.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://anvigleams.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://anvigleams.com/blog/${post.slug}` }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anvigleams.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://anvigleams.in/blog" },
+      { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://anvigleams.in/blog/${post.slug}` }
     ]
   };
 
@@ -53,7 +64,7 @@ export default async function BlogPostPage({ params }: Props) {
       "name": "AnviGleams Skin & Aesthetics",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://anvigleams.com/favicon.png"
+        "url": "https://anvigleams.in/favicon.png"
       }
     }
   };

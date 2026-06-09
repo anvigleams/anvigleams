@@ -15,7 +15,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const t = TREATMENTS.find((x) => x.slug === slug);
   if (!t) return {};
-  return { title: t.name, description: t.description.slice(0, 160) };
+  return { 
+    title: `${t.name} Treatment in Sangamner`, 
+    description: t.description.slice(0, 160),
+    alternates: {
+      canonical: `/treatments/${t.slug}`,
+    },
+    openGraph: {
+      title: `${t.name} Treatment in Sangamner | AnviGleams`,
+      description: t.description.slice(0, 160),
+      url: `/treatments/${t.slug}`,
+      images: [
+        {
+          url: t.images[0],
+          width: 800,
+          height: 600,
+          alt: t.name,
+        },
+      ],
+    }
+  };
 }
 
 export default async function TreatmentDetailPage({ params }: Props) {
@@ -40,9 +59,9 @@ export default async function TreatmentDetailPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anvigleams.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Treatments", "item": "https://anvigleams.com/treatments" },
-      { "@type": "ListItem", "position": 3, "name": t.name, "item": `https://anvigleams.com/treatments/${t.slug}` }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anvigleams.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Treatments", "item": "https://anvigleams.in/treatments" },
+      { "@type": "ListItem", "position": 3, "name": t.name, "item": `https://anvigleams.in/treatments/${t.slug}` }
     ]
   };
 

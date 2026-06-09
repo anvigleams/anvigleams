@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Image as ImageIcon, Video } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
@@ -7,10 +8,10 @@ import { useTranslation } from '@/lib/i18n';
 interface Props { preview?: boolean; }
 
 const GALLERY_ITEMS = [
-  { id: 1, type: 'image', src: '/images/image1.png' },
-  { id: 2, type: 'image', src: '/images/image2.png' },
-  { id: 3, type: 'image', src: '/images/image3.png' },
-  { id: 4, type: 'image', src: '/images/image4.png' },
+  { id: 1, type: 'image', src: '/images/image1.webp' },
+  { id: 2, type: 'image', src: '/images/image2.webp' },
+  { id: 3, type: 'image', src: '/images/image3.webp' },
+  { id: 4, type: 'image', src: '/images/image4.webp' },
 ];
 
 export default function GallerySection({ preview = false }: Props) {
@@ -52,17 +53,16 @@ export default function GallerySection({ preview = false }: Props) {
               }}
             >
               {/* Image */}
-              <img 
+              <Image 
                 src={item.src} 
                 alt="Client Result"
+                width={400}
+                height={400}
                 style={{
                   width: '100%', height: 'auto',
                   display: 'block',
                   zIndex: 1,
                   position: 'relative',
-                }}
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none'; // Hide if missing
                 }}
               />
               

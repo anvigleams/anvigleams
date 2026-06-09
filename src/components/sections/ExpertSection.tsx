@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { ChevronDown, ExternalLink } from 'lucide-react';
 import { CERTIFICATIONS } from '@/lib/data';
@@ -33,7 +34,7 @@ export default function ExpertSection() {
             }}>
               {/* Expert Photo */}
               <div style={{ width: '100%', aspectRatio: '649/809', background: 'var(--bg-soft)' }}>
-                 <img src="/expert-photo.jpg" alt="Pramila Wakale" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                 <Image src="/expert-photo.webp" alt="Pramila Wakale" fill style={{ objectFit: 'cover' }} sizes="(max-width: 768px) 100vw, 320px" />
               </div>
 
               <div style={{ padding: '24px 24px 32px' }}>

@@ -75,7 +75,7 @@ export default function HeroSection() {
               position: 'relative',
             }}>
               <Image
-                src="/hero-model.jpg"
+                src="/hero-model.webp"
                 alt="Radiant skin — AnviGleams"
                 fill
                 style={{ objectFit: 'cover', objectPosition: 'center top' }}

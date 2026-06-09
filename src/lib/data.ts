@@ -18,7 +18,7 @@ export const TREATMENTS: Treatment[] = [
       'Prevents future acne formation',
     ],
     price: 0,
-    images: ['/treatments/acne-treatment.jpg'],
+    images: ['/treatments/acne-treatment.webp'],
     faqs: [
       { q: 'How many sessions do I need?', a: 'Most clients see significant improvement in 3–6 sessions.' },
       { q: 'Is there any downtime?', a: 'Minimal to no downtime.' },
@@ -38,7 +38,7 @@ export const TREATMENTS: Treatment[] = [
       'Reverses sun damage',
     ],
     price: 0,
-    images: ['/treatments/pigmentation-treatment.jpg'],
+    images: ['/treatments/pigmentation-treatment.webp'],
     faqs: [
       { q: 'Will pigmentation return?', a: 'Maintenance and SPF protection help prevent recurrence.' },
     ],
@@ -57,7 +57,7 @@ export const TREATMENTS: Treatment[] = [
       'Improves skin texture',
     ],
     price: 0,
-    images: ['/treatments/scar-reduction-treatment.jpg'],
+    images: ['/treatments/scar-reduction-treatment.webp'],
     faqs: [
       { q: 'Can old scars be treated?', a: 'Yes, even old scars respond well to our protocol.' },
     ],
@@ -76,7 +76,7 @@ export const TREATMENTS: Treatment[] = [
       'Intense moisturisation',
     ],
     price: 0,
-    images: ['/treatments/full-body-miracle-treatment.jpg'],
+    images: ['/treatments/full-body-miracle-treatment.webp'],
     faqs: [
       { q: 'Is it suitable for sensitive skin?', a: 'Yes, we use hypoallergenic products.' },
     ],
@@ -95,7 +95,7 @@ export const TREATMENTS: Treatment[] = [
       'Non-surgical, no downtime',
     ],
     price: 0,
-    images: ['/treatments/skin-tightening.jpg'],
+    images: ['/treatments/skin-tightening.webp'],
     faqs: [
       { q: 'How long do results last?', a: 'Results typically last 12–18 months.' },
     ],
@@ -114,7 +114,7 @@ export const TREATMENTS: Treatment[] = [
       'Deep hydration',
     ],
     price: 0,
-    images: ['/treatments/skin-brightening-and-lightening.jpg'],
+    images: ['/treatments/skin-brightening-and-lightening.webp'],
     faqs: [
       { q: 'Is it safe for all skin types?', a: 'Yes, it is highly customisable.' },
     ],
@@ -133,7 +133,7 @@ export const TREATMENTS: Treatment[] = [
       'Intense hydration infusion',
     ],
     price: 0,
-    images: ['/treatments/hydra-facial.jpg'],
+    images: ['/treatments/hydra-facial.webp'],
     faqs: [
       { q: 'How quickly will I see results?', a: 'Results are visible immediately.' },
     ],
@@ -152,7 +152,7 @@ export const TREATMENTS: Treatment[] = [
       'Instant brightening',
     ],
     price: 0,
-    images: ['/treatments/carbon-facial.jpg'],
+    images: ['/treatments/carbon-facial.webp'],
     faqs: [
       { q: 'Does it hurt?', a: 'No, it is completely painless.' },
     ],
@@ -171,7 +171,7 @@ export const TREATMENTS: Treatment[] = [
       'Longer-lasting results',
     ],
     price: 0,
-    images: ['/treatments/medi-facial.jpg'],
+    images: ['/treatments/medi-facial.webp'],
     faqs: [
       { q: 'How is it different from a regular facial?', a: 'It uses active medical ingredients for deeper penetration.' },
     ],
@@ -190,7 +190,7 @@ export const TREATMENTS: Treatment[] = [
       'Quick procedure',
     ],
     price: 0,
-    images: ['/treatments/mole-removal.jpg'],
+    images: ['/treatments/mole-removal.webp'],
     faqs: [
       { q: 'Will it leave a scar?', a: 'We use techniques designed to minimise scarring.' },
     ],
@@ -209,7 +209,7 @@ export const TREATMENTS: Treatment[] = [
       'Prevents ingrown hairs',
     ],
     price: 0,
-    images: ['/treatments/hair-removal.jpg'],
+    images: ['/treatments/hair-removal.webp'],
     faqs: [
       { q: 'How many sessions are required?', a: 'Typically 6-8 sessions for optimal results.' },
     ],

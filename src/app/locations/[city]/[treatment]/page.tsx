@@ -36,7 +36,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { 
     title: `Best ${t.name} in ${cityName} | AnviGleams Skin Clinic`, 
     description: `Looking for the best ${t.name} in ${cityName}? AnviGleams offers advanced clinical skin treatments. ${t.description.slice(0, 100)}... Book now!`,
-    keywords: [`${t.name} in ${cityName}`, `Best ${t.name} near ${cityName}`, `Skin Care Clinic in ${cityName}`, `AnviGleams ${cityName}`]
+    keywords: [`${t.name} in ${cityName}`, `Best ${t.name} near ${cityName}`, `Skin Care Clinic in ${cityName}`, `AnviGleams ${cityName}`],
+    alternates: {
+      canonical: `/locations/${city}/${t.slug}`,
+    },
+    openGraph: {
+      title: `Best ${t.name} in ${cityName} | AnviGleams`,
+      description: `Looking for the best ${t.name} in ${cityName}? AnviGleams offers advanced clinical skin treatments.`,
+      url: `/locations/${city}/${t.slug}`,
+      images: [
+        {
+          url: t.images[0],
+          width: 800,
+          height: 600,
+          alt: `${t.name} in ${cityName}`,
+        },
+      ],
+    }
   };
 }
 
@@ -65,9 +81,9 @@ export default async function LocationTreatmentPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anvigleams.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Treatments", "item": "https://anvigleams.com/treatments" },
-      { "@type": "ListItem", "position": 3, "name": localizedTitle, "item": `https://anvigleams.com/locations/${city}/${t.slug}` }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anvigleams.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Treatments", "item": "https://anvigleams.in/treatments" },
+      { "@type": "ListItem", "position": 3, "name": localizedTitle, "item": `https://anvigleams.in/locations/${city}/${t.slug}` }
     ]
   };
 

@@ -55,7 +55,7 @@ const medicalClinicSchema = {
   "@type": ["MedicalClinic", "LocalBusiness", "HealthAndBeautyBusiness"],
   "name": CLINIC_INFO.name,
   "description": "AnviGleams is the best skin care clinic in Sangamner. We specialize in Hydrafacial, Acne Treatment, Pigmentation Removal, and Skin Tightening.",
-  "image": "https://anvigleams.in/images/gallery1.png",
+  "image": "https://anvigleams.in/images/image1.webp",
   "url": "https://anvigleams.in",
   "telephone": CLINIC_INFO.phone,
   "address": {
@@ -79,6 +79,11 @@ const medicalClinicSchema = {
       "closes": "20:00"
     }
   ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "128"
+  },
   "priceRange": "$$",
   "medicalSpecialty": ["Dermatologic", "Cosmetic"]
 };

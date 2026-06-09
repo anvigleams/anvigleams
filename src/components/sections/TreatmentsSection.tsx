@@ -31,14 +31,23 @@ export default function TreatmentsSection({ preview = false }: Props) {
           gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
           gap: 20,
         }}>
-          {items.map((treatment) => (
+          {items.map((treatment) => {
+            const tNameKey = `treatment.${treatment.slug.replace(/-/g, '_')}`;
+            const tName = t(tNameKey);
+            const displayName = tName === tNameKey ? treatment.name : tName;
+
+            const tDescKey = `treatment.${treatment.slug.replace(/-/g, '_')}_desc`;
+            const tDesc = t(tDescKey);
+            const displayDesc = tDesc === tDescKey ? treatment.description : tDesc;
+
+            return (
             <Link key={treatment.treatmentId} href={`/treatments/${treatment.slug}`} style={{ textDecoration: 'none' }}>
               <div className="card" style={{ padding: 0, overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
                 {/* Top accent bar */}
                 <div style={{ height: 4, background: `linear-gradient(90deg, var(--crimson), var(--rose))` }} />
                 <div style={{ padding: '22px 24px 26px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <h3 className="display" style={{ fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: 10 }}>
-                    {t(`treatment.${treatment.slug.replace(/-/g, '_')}`) || treatment.name}
+                    {displayName}
                   </h3>
 
                   <p style={{
@@ -52,7 +61,7 @@ export default function TreatmentsSection({ preview = false }: Props) {
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden',
                   }}>
-                    {t(`treatment.${treatment.slug.replace(/-/g, '_')}_desc`) || treatment.description}
+                    {displayDesc}
                   </p>
 
                   <div style={{
@@ -66,7 +75,7 @@ export default function TreatmentsSection({ preview = false }: Props) {
                 </div>
               </div>
             </Link>
-          ))}
+          )})}
         </div>
 
         {preview && (
