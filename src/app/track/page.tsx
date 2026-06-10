@@ -174,47 +174,49 @@ export default function TrackPage() {
 
             <form onSubmit={handleSearch} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {trackMode === 'phone' ? (
-                <div style={{ display: 'flex', gap: 10 }}>
-                  <div style={{ flex: 1, position: 'relative' }}>
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                  <div style={{ flex: '1 1 200px', position: 'relative' }}>
                     <Search size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', pointerEvents: 'none' }} />
                     <span style={{ position: 'absolute', left: 38, top: '50%', transform: 'translateY(-50%)', fontFamily: 'var(--sans)', fontSize: '0.93rem', color: 'var(--text-secondary)', pointerEvents: 'none' }}>+91</span>
                     <input
                       id="track-phone" type="tel" placeholder={t('book.placeholder_phone')}
                       value={phone} onChange={(e) => { setPhone(e.target.value); setError(''); }}
-                      className="form-input" style={{ paddingLeft: 72 }}
+                      className="form-input" style={{ paddingLeft: 72, width: '100%' }}
                     />
                   </div>
-                  <button type="submit" className="btn btn-primary" disabled={loading} style={{ padding: '12px 20px', flexShrink: 0 }}>
+                  <button type="submit" className="btn btn-primary" disabled={loading} style={{ padding: '12px 20px', flexShrink: 0, flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? '...' : <Search size={17} />}
                   </button>
                 </div>
               ) : (
-                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                  <div style={{ fontFamily: 'var(--sans)', fontSize: '1.2rem', fontWeight: 600, color: 'var(--text-secondary)' }}>AG-</div>
-                  <div style={{ display: 'flex', gap: 8, flex: 1 }}>
-                    {idChars.map((char, idx) => (
-                      <input
-                        key={idx}
-                        id={`id-input-${idx}`}
-                        type="text"
-                        value={char}
-                        maxLength={6} // allow paste
-                        onChange={(e) => handleIdChange(idx, e.target.value)}
-                        onKeyDown={(e) => handleIdKeyDown(idx, e)}
-                        className="form-input"
-                        style={{
-                          flex: 1,
-                          padding: '12px 0',
-                          textAlign: 'center',
-                          fontSize: '1.2rem',
-                          textTransform: 'uppercase',
-                          fontWeight: 600,
-                          minWidth: 0,
-                        }}
-                      />
-                    ))}
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 240px' }}>
+                    <div style={{ fontFamily: 'var(--sans)', fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>AG-</div>
+                    <div style={{ display: 'flex', gap: 'clamp(4px, 1.5vw, 8px)', flex: 1 }}>
+                      {idChars.map((char, idx) => (
+                        <input
+                          key={idx}
+                          id={`id-input-${idx}`}
+                          type="text"
+                          value={char}
+                          maxLength={6} // allow paste
+                          onChange={(e) => handleIdChange(idx, e.target.value)}
+                          onKeyDown={(e) => handleIdKeyDown(idx, e)}
+                          className="form-input"
+                          style={{
+                            flex: 1,
+                            padding: '10px 0',
+                            textAlign: 'center',
+                            fontSize: '1.1rem',
+                            textTransform: 'uppercase',
+                            fontWeight: 600,
+                            minWidth: 0,
+                          }}
+                        />
+                      ))}
+                    </div>
                   </div>
-                  <button type="submit" className="btn btn-primary" disabled={loading || idChars.join('').length !== 6} style={{ padding: '12px 20px', flexShrink: 0 }}>
+                  <button type="submit" className="btn btn-primary" disabled={loading || idChars.join('').length !== 6} style={{ padding: '12px 20px', flexShrink: 0, flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ? '...' : <Search size={17} />}
                   </button>
                 </div>
