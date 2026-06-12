@@ -40,9 +40,11 @@ export default function Marquee() {
         .marquee-track {
           display: flex;
           align-items: center;
-          width: fit-content;
+          width: max-content;
           will-change: transform;
-          transform: translate3d(0,0,0);
+          transform: translate3d(0, 0, 0);
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
           animation: marquee 20s linear infinite;
         }
 
@@ -57,6 +59,8 @@ export default function Marquee() {
           font-weight: 600;
           letter-spacing: 0.1em;
           text-transform: uppercase;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
         .dot {
