@@ -16,74 +16,47 @@ export default function Marquee() {
   const track = [...ITEMS, ...ITEMS];
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        overflow: 'hidden',
-        background:
-          'linear-gradient(90deg, var(--crimson-dark) 0%, var(--crimson) 50%, var(--crimson-dark) 100%)',
-        padding: '14px 0',
-      }}
-    >
-      {/* Fade edges */}
-      <div
-        style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: 80,
-          background:
-            'linear-gradient(90deg, var(--crimson-dark), transparent)',
-          zIndex: 1,
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        style={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          bottom: 0,
-          width: 80,
-          background:
-            'linear-gradient(-90deg, var(--crimson-dark), transparent)',
-          zIndex: 1,
-          pointerEvents: 'none',
-        }}
-      />
+    <div className="marquee-container">
+      <div className="fade-left" />
+      <div className="fade-right" />
 
       <div className="marquee-track">
         {track.map((item, i) => (
-          <span className="marquee-item" key={i}>
+          <div className="marquee-item" key={i}>
             {item}
             <span className="dot" />
-          </span>
+          </div>
         ))}
       </div>
 
-      <style>{`
+      <style jsx>{`
+        .marquee-container {
+          position: relative;
+          overflow: hidden;
+          background: var(--crimson);
+          padding: 14px 0;
+        }
+
         .marquee-track {
           display: flex;
-          width: max-content;
-          white-space: nowrap;
+          align-items: center;
+          width: fit-content;
           will-change: transform;
-          animation: marquee 18s linear infinite;
+          transform: translate3d(0,0,0);
+          animation: marquee 20s linear infinite;
         }
 
         .marquee-item {
-          display: inline-flex;
+          flex-shrink: 0;
+          display: flex;
           align-items: center;
-          gap: 24px;
-          padding: 0 28px;
-          font-family: var(--sans);
+          gap: 20px;
+          padding: 0 24px;
+          color: rgba(255,255,255,0.92);
           font-size: 0.82rem;
           font-weight: 600;
-          letter-spacing: 0.12em;
+          letter-spacing: 0.1em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.92);
-          flex-shrink: 0;
         }
 
         .dot {
@@ -91,21 +64,34 @@ export default function Marquee() {
           height: 5px;
           border-radius: 50%;
           background: rgba(255,255,255,0.35);
-          flex-shrink: 0;
+        }
+
+        .fade-left,
+        .fade-right {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 40px;
+          z-index: 2;
+          pointer-events: none;
+        }
+
+        .fade-left {
+          left: 0;
+          background: linear-gradient(to right, var(--crimson), transparent);
+        }
+
+        .fade-right {
+          right: 0;
+          background: linear-gradient(to left, var(--crimson), transparent);
         }
 
         @keyframes marquee {
           from {
-            transform: translateX(0);
+            transform: translate3d(0,0,0);
           }
           to {
-            transform: translateX(-50%);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .marquee-track {
-            animation: none;
+            transform: translate3d(-50%,0,0);
           }
         }
       `}</style>
