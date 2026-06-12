@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, Calendar, Clock, CheckCircle, XCircle, AlertCircle, Ban, X, Info } from 'lucide-react';
+import { Search, Calendar, Clock, CheckCircle, XCircle, AlertCircle, Ban, X, Info, Hourglass, CircleDashed } from 'lucide-react';
 import { getAppointmentsByPhone, getTrackingResultsById, cancelAppointment } from '@/services/appointmentService';
 import type { TrackingResult, AppointmentStatus } from '@/types';
 import { STATUS_CONFIG } from '@/types';
@@ -307,6 +307,43 @@ function Group({ title, items, onCancel, cancelLoading, t }: {
                   <span style={{ fontFamily: 'var(--sans)', fontSize: '0.86rem', color: 'var(--text-secondary)' }}>{formatTime(a.time)}</span>
                 </div>
               </div>
+
+              {/* Progress Timeline for Active Appointments */}
+              {(a.status === 'pending' || a.status === 'accepted') && (
+                <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px dashed var(--border-light)' }}>
+                  <h4 className="label" style={{ fontSize: '0.75rem', marginBottom: 12 }}>Appointment Progress</h4>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative' }}>
+                    {/* Background Line */}
+                    <div style={{ position: 'absolute', top: 12, left: 16, right: 16, height: 2, background: 'var(--border-light)', zIndex: 0 }} />
+                    {/* Active Line */}
+                    <div style={{ position: 'absolute', top: 12, left: 16, width: a.status === 'accepted' ? '50%' : '0%', height: 2, background: 'var(--rose)', zIndex: 1, transition: 'width 0.5s ease' }} />
+                    
+                    {/* Step 1 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, zIndex: 2, width: 60 }}>
+                      <div style={{ width: 26, height: 26, borderRadius: '50%', background: 'var(--rose)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 0 4px #fff' }}>
+                        <CheckCircle size={14} />
+                      </div>
+                      <span style={{ fontFamily: 'var(--sans)', fontSize: '0.7rem', color: 'var(--text-primary)', textAlign: 'center', fontWeight: 600, lineHeight: 1.2 }}>Received</span>
+                    </div>
+
+                    {/* Step 2 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, zIndex: 2, width: 60 }}>
+                      <div style={{ width: 26, height: 26, borderRadius: '50%', background: a.status === 'accepted' ? 'var(--rose)' : '#fff', border: a.status === 'accepted' ? 'none' : '2px solid var(--border)', color: a.status === 'accepted' ? 'white' : 'var(--text-muted)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 0 4px #fff' }}>
+                        {a.status === 'accepted' ? <CheckCircle size={14} /> : <Hourglass size={12} />}
+                      </div>
+                      <span style={{ fontFamily: 'var(--sans)', fontSize: '0.7rem', color: a.status === 'accepted' ? 'var(--text-primary)' : 'var(--text-muted)', textAlign: 'center', fontWeight: a.status === 'accepted' ? 600 : 400, lineHeight: 1.2 }}>Confirmed</span>
+                    </div>
+
+                    {/* Step 3 */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, zIndex: 2, width: 60 }}>
+                      <div style={{ width: 26, height: 26, borderRadius: '50%', background: '#fff', border: '2px solid var(--border)', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 0 4px #fff' }}>
+                        {a.status === 'accepted' ? <Hourglass size={12} /> : <CircleDashed size={14} />}
+                      </div>
+                      <span style={{ fontFamily: 'var(--sans)', fontSize: '0.7rem', color: 'var(--text-muted)', textAlign: 'center', lineHeight: 1.2 }}>Consultation</span>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Payment */}
               {a.status === 'completed' && p && (

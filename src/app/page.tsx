@@ -2,6 +2,7 @@ import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import TreatmentsSection from '@/components/sections/TreatmentsSection';
 import ExpertSection from '@/components/sections/ExpertSection';
+import ReviewsSection from '@/components/sections/ReviewsSection';
 import GallerySection from '@/components/sections/GallerySection';
 import BookingCTA from '@/components/sections/BookingCTA';
 import type { Metadata } from 'next';
@@ -68,6 +69,7 @@ export default function HomePage() {
       <AboutSection />
       <TreatmentsSection preview />
       <ExpertSection />
+      <ReviewsSection />
       <GallerySection preview />
       <BookingCTA />
     </>

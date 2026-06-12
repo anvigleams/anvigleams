@@ -6,6 +6,8 @@ import Footer from '@/components/layout/Footer';
 import { LanguageProvider } from '@/lib/i18n';
 import SchemaOrg from '@/components/seo/SchemaOrg';
 import { CLINIC_INFO } from '@/lib/data';
+import WhatsAppButton from '@/components/layout/WhatsAppButton';
+import BackgroundBlobs from '@/components/layout/BackgroundBlobs';
 
 // Load both fonts via next/font — zero render-blocking, auto-optimised
 const inter = Inter({
@@ -100,9 +102,11 @@ export default function RootLayout({
       </head>
       <body>
         <LanguageProvider>
+          <BackgroundBlobs />
           <Navbar />
           <main>{children}</main>
           <Footer />
+          <WhatsAppButton />
         </LanguageProvider>
       </body>
     </html>
