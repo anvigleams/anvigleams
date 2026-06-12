@@ -183,9 +183,8 @@ export default function ReviewsSection() {
         {/* Stats row */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center', marginBottom: 52 }}>
           {[
-            { emoji: '⭐', value: <CountUp end={data.rating} duration={1.5} />, label: 'Google Rating' },
-            { emoji: '🌟', value: <><CountUp end={data.reviewCount * 12} suffix="+" duration={2} /></>, label: 'Happy Clients' },
-            { emoji: '✨', value: <><CountUp end={data.reviewCount * 30} suffix="+" duration={2.5} /></>, label: 'Treatments Done' },
+            { emoji: '⭐', value: <CountUp end={data.rating || 4.9} duration={1.5} />, label: 'Google Rating' },
+            { emoji: '✨', value: <CountUp end={500} suffix="+" duration={2.0} />, label: 'Treatments Done' },
           ].map(({ emoji, value, label }, i) => (
             <motion.div
               key={label}
