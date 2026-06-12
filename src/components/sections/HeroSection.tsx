@@ -116,16 +116,16 @@ export default function HeroSection() {
         {/* Left gradient fade — blends image into white/bg */}
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'linear-gradient(90deg, var(--bg) 0%, var(--bg) 15%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,0.3) 100%)',
+          background: 'linear-gradient(90deg, var(--bg) 0%, var(--bg) 15%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0.2) 65%, transparent 85%)',
         }} />
         {/* Top fade */}
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.4) 100%)',
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.3) 100%)',
         }} />
         {/* Soft edge blur on right */}
         <div style={{
-          position: 'absolute', top: 0, right: 0, bottom: 0, width: '20%',
+          position: 'absolute', top: 0, right: 0, bottom: 0, width: '15%',
           background: 'linear-gradient(-90deg, var(--bg) 0%, transparent 100%)',
         }} />
       </motion.div>
@@ -230,18 +230,18 @@ export default function HeroSection() {
         }
 
         .hero-image {
-          opacity: 0.68;
+          opacity: 1.0;
           transition: opacity 0.3s ease;
         }
 
         @media (max-width: 991px) {
           .hero-image {
-            opacity: 0.45;
+            opacity: 1.0;
           }
         }
         @media (max-width: 767px) {
           .hero-image {
-            opacity: 0.35;
+            opacity: 1.0;
           }
         }
       `}</style>
