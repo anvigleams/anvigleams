@@ -220,12 +220,12 @@ export default function HeroSection() {
 
         @media (max-width: 991px) {
           .hero-image {
-            opacity: 1.0;
+            opacity: 0.45;
           }
         }
         @media (max-width: 767px) {
           .hero-image {
-            opacity: 1.0;
+            opacity: 0.22;
           }
           .hero-image-wrap {
             transform: none !important;
