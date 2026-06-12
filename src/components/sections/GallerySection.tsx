@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Image as ImageIcon, Video } from 'lucide-react';
@@ -20,6 +21,7 @@ const GALLERY_ITEMS = [
 
 export default function GallerySection({ preview = false }: Props) {
   const { t } = useTranslation();
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const items = preview ? GALLERY_ITEMS.slice(0, 4) : GALLERY_ITEMS;
 
   return (
@@ -36,15 +38,14 @@ export default function GallerySection({ preview = false }: Props) {
         </div>
 
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-          gap: 16,
-          alignItems: 'start',
+          columnWidth: '260px',
+          columnGap: '16px',
         }}>
           {items.map((item) => (
             <div
               key={item.id}
               className="card"
+              onClick={() => setSelectedImage(item.src)}
               style={{
                 overflow: 'hidden',
                 position: 'relative',
@@ -54,6 +55,9 @@ export default function GallerySection({ preview = false }: Props) {
                 background: 'var(--bg)',
                 border: '1px dashed var(--border)',
                 padding: 0,
+                marginBottom: '16px',
+                breakInside: 'avoid',
+                cursor: 'pointer',
               }}
             >
               {/* Image */}
@@ -92,6 +96,51 @@ export default function GallerySection({ preview = false }: Props) {
           </div>
         )}
       </div>
+
+      {/* Lightbox Modal */}
+      {selectedImage && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0, left: 0, right: 0, bottom: 0,
+            background: 'rgba(0,0,0,0.85)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px',
+            cursor: 'pointer',
+            backdropFilter: 'blur(4px)',
+          }}
+          onClick={() => setSelectedImage(null)}
+        >
+          <div style={{ position: 'relative', maxWidth: '100%', maxHeight: '100%' }}>
+            <img 
+              src={selectedImage} 
+              alt="Enlarged gallery item" 
+              style={{ 
+                maxWidth: '100%', 
+                maxHeight: '85vh',
+                objectFit: 'contain',
+                borderRadius: '8px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+              }} 
+            />
+            <button 
+              onClick={(e) => { e.stopPropagation(); setSelectedImage(null); }}
+              style={{
+                position: 'absolute',
+                top: -40, right: 0,
+                background: 'none', border: 'none', color: 'white', fontSize: '32px', cursor: 'pointer',
+                lineHeight: 1, padding: '4px',
+              }}
+              aria-label="Close modal"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
