@@ -112,22 +112,6 @@ export default function HeroSection() {
             style={{ objectFit: 'cover', objectPosition: 'right top' }}
           />
         </motion.div>
-
-        {/* Left gradient fade — blends image into white/bg */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'linear-gradient(90deg, var(--bg) 0%, var(--bg) 15%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0.2) 65%, transparent 85%)',
-        }} />
-        {/* Top fade */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.3) 100%)',
-        }} />
-        {/* Soft edge blur on right */}
-        <div style={{
-          position: 'absolute', top: 0, right: 0, bottom: 0, width: '15%',
-          background: 'linear-gradient(-90deg, var(--bg) 0%, transparent 100%)',
-        }} />
       </motion.div>
 
       {/* ── Content ── */}
