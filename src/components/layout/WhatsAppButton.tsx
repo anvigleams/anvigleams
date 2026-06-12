@@ -12,6 +12,7 @@ export default function WhatsAppButton() {
       href="https://wa.me/919022256128"
       target="_blank"
       rel="noopener noreferrer"
+      aria-label="Contact us on WhatsApp"
       initial={{ scale: 0, opacity: 0, y: 20 }}
       animate={{ scale: 1, opacity: 1, y: 0 }}
       transition={{ delay: 1.2, duration: 0.5, type: 'spring', stiffness: 200 }}

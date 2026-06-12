@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Menu, X, Sparkles, Globe } from 'lucide-react';
@@ -49,8 +50,8 @@ export default function Navbar() {
         <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', gap: 8 }}>
           {/* Logo */}
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 0, textDecoration: 'none', marginRight: 'auto', minWidth: 0 }}>
-            <img src="/iocn.png" alt="AnviGleams Icon" style={{ width: 45, height: 45, objectFit: 'contain', flexShrink: 0 }} />
-            <img src="/text.png" alt="AnviGleams" className="nav-logo-text" style={{ width: 220, objectFit: 'contain', marginLeft: -25, marginTop: 10, flexShrink: 1 }} />
+            <Image src="/logo-icon.webp" alt="AnviGleams Icon" width={45} height={30} priority style={{ objectFit: 'contain', flexShrink: 0 }} />
+            <Image src="/logo-text.webp" alt="AnviGleams" className="nav-logo-text" width={220} height={147} priority style={{ objectFit: 'contain', marginLeft: -25, marginTop: 10, flexShrink: 1 }} />
           </Link>
 
           {/* Desktop nav */}

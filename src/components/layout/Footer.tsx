@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Phone, MapPin, Clock, ExternalLink, Mail, Heart } from 'lucide-react';
 import { InstagramIcon } from '@/components/ui/InstagramIcon';
 import Logo from '@/components/ui/Logo';
@@ -28,14 +29,15 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 0, textDecoration: 'none', marginBottom: 16 }}>
-              <img src="/iocn.png" alt="AnviGleams Icon" style={{ width: 90, height: 90, objectFit: 'contain' }} />
-              <img src="/text.png" alt="AnviGleams" style={{ width: 280, objectFit: 'contain', marginLeft: -35, marginTop: 10 }} />
+              <Image src="/logo-icon.webp" alt="AnviGleams Icon" width={90} height={60} style={{ objectFit: 'contain' }} />
+              <Image src="/logo-text.webp" alt="AnviGleams" width={280} height={187} style={{ objectFit: 'contain', marginLeft: -35, marginTop: 10 }} />
             </Link>
             <p style={{ fontFamily: 'var(--sans)', fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.65, maxWidth: 240, marginBottom: 18 }}>
               {t('footer.slogan')}
             </p>
             <div style={{ display: 'flex', gap: 8 }}>
               <a href={`mailto:${CLINIC_INFO.email}`}
+                aria-label="Email AnviGleams"
                 style={{ width: 34, height: 34, borderRadius: 'var(--r-sm)', background: 'var(--bg)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', textDecoration: 'none' }}>
                 <Mail size={15} />
               </a>

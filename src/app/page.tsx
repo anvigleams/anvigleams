@@ -1,14 +1,16 @@
 import HeroSection from '@/components/sections/HeroSection';
-import AboutSection from '@/components/sections/AboutSection';
-import TreatmentsSection from '@/components/sections/TreatmentsSection';
-import ExpertSection from '@/components/sections/ExpertSection';
-import ReviewsSection from '@/components/sections/ReviewsSection';
-import GallerySection from '@/components/sections/GallerySection';
-import BookingCTA from '@/components/sections/BookingCTA';
 import Marquee from '@/components/ui/Marquee';
 import WaveDivider from '@/components/ui/WaveDivider';
 import type { Metadata } from 'next';
 import SchemaOrg from '@/components/seo/SchemaOrg';
+import dynamic from 'next/dynamic';
+
+const AboutSection = dynamic(() => import('@/components/sections/AboutSection'), { ssr: true });
+const TreatmentsSection = dynamic(() => import('@/components/sections/TreatmentsSection'), { ssr: true });
+const ExpertSection = dynamic(() => import('@/components/sections/ExpertSection'), { ssr: true });
+const ReviewsSection = dynamic(() => import('@/components/sections/ReviewsSection'), { ssr: true });
+const GallerySection = dynamic(() => import('@/components/sections/GallerySection'), { ssr: true });
+const BookingCTA = dynamic(() => import('@/components/sections/BookingCTA'), { ssr: true });
 
 export const metadata: Metadata = {
   title: 'Best Skin Care Clinic in Sangamner | AnviGleams Skin Studio',
