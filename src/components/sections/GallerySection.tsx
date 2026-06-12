@@ -9,20 +9,23 @@ import { useTranslation } from '@/lib/i18n';
 interface Props { preview?: boolean; }
 
 const GALLERY_ITEMS = [
-  { id: 1, type: 'image', src: '/images/image1.webp' },
-  { id: 2, type: 'image', src: '/images/image2.webp' },
-  { id: 3, type: 'image', src: '/images/image3.webp' },
-  { id: 4, type: 'image', src: '/images/image4.webp' },
-  { id: 5, type: 'image', src: '/images/image5.webp' },
-  { id: 6, type: 'image', src: '/images/image6.webp' },
-  { id: 7, type: 'image', src: '/images/image7.webp' },
-  { id: 8, type: 'image', src: '/images/image8.webp' },
+  { id: 1, type: 'image', category: 'results', src: '/images/image1.webp' },
+  { id: 2, type: 'image', category: 'results', src: '/images/image2.webp' },
+  { id: 3, type: 'image', category: 'results', src: '/images/image3.webp' },
+  { id: 4, type: 'image', category: 'results', src: '/images/image4.webp' },
+  { id: 5, type: 'image', category: 'clinic', src: '/images/image5.webp' },
+  { id: 6, type: 'image', category: 'clinic', src: '/images/image6.webp' },
+  { id: 7, type: 'image', category: 'clinic', src: '/images/image7.webp' },
+  { id: 8, type: 'image', category: 'clinic', src: '/images/image8.webp' },
 ];
 
 export default function GallerySection({ preview = false }: Props) {
   const { t } = useTranslation();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const items = preview ? GALLERY_ITEMS.slice(0, 4) : GALLERY_ITEMS;
+  const [activeTab, setActiveTab] = useState<'results' | 'clinic'>('results');
+  
+  const filteredItems = GALLERY_ITEMS.filter(item => item.category === activeTab);
+  const items = preview ? filteredItems.slice(0, 4) : filteredItems;
 
   return (
     <section className="section" style={{ background: 'var(--bg-soft)' }}>
@@ -35,6 +38,23 @@ export default function GallerySection({ preview = false }: Props) {
           <p style={{ fontFamily: 'var(--sans)', fontSize: '0.97rem', color: 'var(--text-secondary)' }}>
             {t('gallery.subtitle')}
           </p>
+        </div>
+
+        <div style={{ display: 'flex', gap: 12, marginBottom: 32, justifyContent: 'flex-start', flexWrap: 'wrap' }}>
+          <button 
+            className={`btn ${activeTab === 'results' ? 'btn-primary' : 'btn-outline'}`}
+            style={{ borderRadius: 100, padding: '8px 20px', fontSize: '0.9rem' }}
+            onClick={() => setActiveTab('results')}
+          >
+            {t('gallery.tab_results')}
+          </button>
+          <button 
+            className={`btn ${activeTab === 'clinic' ? 'btn-primary' : 'btn-outline'}`}
+            style={{ borderRadius: 100, padding: '8px 20px', fontSize: '0.9rem' }}
+            onClick={() => setActiveTab('clinic')}
+          >
+            {t('gallery.tab_clinic')}
+          </button>
         </div>
 
         <div style={{

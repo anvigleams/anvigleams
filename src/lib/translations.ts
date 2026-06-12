@@ -130,6 +130,8 @@ export const translations: Record<Language, TranslationDictionary> = {
     'gallery.item_6': 'Skin Tightening',
     'gallery.video_placeholder': 'Video Placeholder',
     'gallery.photo_placeholder': 'Photo Placeholder',
+    'gallery.tab_results': 'Client Results',
+    'gallery.tab_clinic': 'Our Clinic',
 
     // Global
     'global.anvigleams': 'AnviGleams',
@@ -365,6 +367,8 @@ export const translations: Record<Language, TranslationDictionary> = {
     'gallery.item_6': 'त्वचा में कसाव',
     'gallery.video_placeholder': 'वीडियो प्लेसहोल्डर',
     'gallery.photo_placeholder': 'फोटो प्लेसहोल्डर',
+    'gallery.tab_results': 'क्लाइंट परिणाम',
+    'gallery.tab_clinic': 'हमारा क्लिनिक',
 
     // Global
     'global.anvigleams': 'AnviGleams',
@@ -600,6 +604,8 @@ export const translations: Record<Language, TranslationDictionary> = {
     'gallery.item_6': 'त्वचा घट्ट करणे',
     'gallery.video_placeholder': 'व्हिडिओ प्लेसहोल्डर',
     'gallery.photo_placeholder': 'फोटो प्लेसहोल्डर',
+    'gallery.tab_results': 'क्लायंट परिणाम',
+    'gallery.tab_clinic': 'आमचे क्लिनिक',
 
     // Global
     'global.anvigleams': 'AnviGleams',
