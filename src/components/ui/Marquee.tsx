@@ -1,71 +1,112 @@
 'use client';
 
-import { useRef } from 'react';
-
 const ITEMS = [
-  'Hydra Facial', 'Carbon Facial', 'Acne Treatment',
-  'Pigmentation Treatment', 'Hair Removal', 'Skin Tightening',
-  'Scar Reduction', 'Medi Facial', 'Anti-Aging',
+  'Hydra Facial',
+  'Carbon Facial',
+  'Acne Treatment',
+  'Pigmentation Treatment',
+  'Hair Removal',
+  'Skin Tightening',
+  'Scar Reduction',
+  'Medi Facial',
+  'Anti-Aging',
 ];
 
 export default function Marquee() {
-  // Duplicate items for seamless loop (4 sets ensures no empty space on wide displays)
-  const track = [...ITEMS, ...ITEMS, ...ITEMS, ...ITEMS];
+  const track = [...ITEMS, ...ITEMS];
 
   return (
     <div
       style={{
         position: 'relative',
         overflow: 'hidden',
-        background: 'linear-gradient(90deg, var(--crimson-dark) 0%, var(--crimson) 50%, var(--crimson-dark) 100%)',
+        background:
+          'linear-gradient(90deg, var(--crimson-dark) 0%, var(--crimson) 50%, var(--crimson-dark) 100%)',
         padding: '14px 0',
       }}
     >
       {/* Fade edges */}
-      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 80, background: 'linear-gradient(90deg, var(--crimson-dark), transparent)', zIndex: 1, pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 80, background: 'linear-gradient(-90deg, var(--crimson-dark), transparent)', zIndex: 1, pointerEvents: 'none' }} />
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: 80,
+          background:
+            'linear-gradient(90deg, var(--crimson-dark), transparent)',
+          zIndex: 1,
+          pointerEvents: 'none',
+        }}
+      />
 
       <div
-        className="marquee-track"
-        style={{ display: 'flex', gap: '0', whiteSpace: 'nowrap', willChange: 'transform' }}
-      >
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          bottom: 0,
+          width: 80,
+          background:
+            'linear-gradient(-90deg, var(--crimson-dark), transparent)',
+          zIndex: 1,
+          pointerEvents: 'none',
+        }}
+      />
+
+      <div className="marquee-track">
         {track.map((item, i) => (
-          <span
-            key={i}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 24,
-              padding: '0 28px',
-              fontFamily: 'var(--sans)',
-              fontSize: '0.82rem',
-              fontWeight: 600,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.92)',
-            }}
-          >
+          <span className="marquee-item" key={i}>
             {item}
-            <span style={{
-              width: 5, height: 5, borderRadius: '50%',
-              background: 'rgba(255,255,255,0.35)',
-              display: 'inline-block',
-              flexShrink: 0,
-            }} />
+            <span className="dot" />
           </span>
         ))}
       </div>
 
       <style>{`
         .marquee-track {
-          animation: marquee-scroll 4.5s linear infinite;
+          display: flex;
+          width: max-content;
+          white-space: nowrap;
+          will-change: transform;
+          animation: marquee 18s linear infinite;
         }
-        @keyframes marquee-scroll {
-          from { transform: translate3d(0, 0, 0); }
-          to   { transform: translate3d(-25%, 0, 0); }
+
+        .marquee-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 24px;
+          padding: 0 28px;
+          font-family: var(--sans);
+          font-size: 0.82rem;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.92);
+          flex-shrink: 0;
         }
+
+        .dot {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.35);
+          flex-shrink: 0;
+        }
+
+        @keyframes marquee {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
-          .marquee-track { animation: none; }
+          .marquee-track {
+            animation: none;
+          }
         }
       `}</style>
     </div>
