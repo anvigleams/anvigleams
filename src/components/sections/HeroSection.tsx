@@ -210,19 +210,6 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Treatment pills */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}
-          >
-            {PILLS.map((p) => (
-              <span key={p} style={{ padding: '5px 13px', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)', border: '1px solid var(--border)', borderRadius: 'var(--r-full)', fontFamily: 'var(--sans)', fontSize: '0.77rem', fontWeight: 500, color: 'var(--text-secondary)' }}>
-                {t(`treatment.${p.replace(/\s+/g, '_').toLowerCase()}`) || p}
-              </span>
-            ))}
-          </motion.div>
         </div>
       </div>
 
@@ -243,18 +230,18 @@ export default function HeroSection() {
         }
 
         .hero-image {
-          opacity: 0.38;
+          opacity: 0.68;
           transition: opacity 0.3s ease;
         }
 
         @media (max-width: 991px) {
           .hero-image {
-            opacity: 0.22;
+            opacity: 0.45;
           }
         }
         @media (max-width: 767px) {
           .hero-image {
-            opacity: 0.15;
+            opacity: 0.35;
           }
         }
       `}</style>

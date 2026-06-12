@@ -58,7 +58,7 @@ export default function Marquee() {
 
       <style>{`
         .marquee-track {
-          animation: marquee-scroll 22s linear infinite;
+          animation: marquee-scroll 12s linear infinite;
         }
         @keyframes marquee-scroll {
           from { transform: translateX(0); }

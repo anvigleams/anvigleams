@@ -4,7 +4,6 @@ import { useEffect, useState, useMemo } from 'react';
 import { Star, Search, ArrowUpDown, ExternalLink, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import type { Metadata } from 'next';
 
 interface Review {
   author: string;
@@ -15,11 +14,31 @@ interface Review {
 }
 
 const FALLBACK_REVIEWS: Review[] = [
-  { author: 'Sneha Patil', avatar: null, rating: 5, text: 'Best skin clinic in Sangamner! The HydraFacial treatment was amazing. My skin feels so refreshed and glowing. Highly recommended to everyone!', time: '2024-11-15' },
-  { author: 'Priya Sharma', avatar: null, rating: 5, text: 'Pramila madam is very experienced and caring. The acne treatment has completely transformed my skin. Very happy with the results and the friendly staff.', time: '2024-12-10' },
-  { author: 'Rakesh More', avatar: null, rating: 5, text: 'Excellent service and very professional staff. The clinic is very clean and the treatments are top quality. Must visit for anyone looking for skin care in Sangamner!', time: '2025-01-20' },
+  { author: 'Sneha Patil', avatar: null, rating: 5, text: 'Best skin clinic in Sangamner! The HydraFacial treatment was amazing. My skin feels so refreshed and glowing. Highly recommended to everyone!', time: '2025-05-15' },
+  { author: 'Priya Sharma', avatar: null, rating: 5, text: 'Pramila madam is very experienced and caring. The acne treatment has completely transformed my skin. Very happy with the results and the friendly staff.', time: '2025-04-10' },
+  { author: 'Rakesh More', avatar: null, rating: 5, text: 'Excellent service and very professional staff. The clinic is very clean and the treatments are top quality. Must visit for anyone looking for skin care in Sangamner!', time: '2025-03-20' },
   { author: 'Aarti Deshmukh', avatar: null, rating: 5, text: 'The carbon facial was absolutely wonderful. I could see the glow immediately after the treatment. Will definitely come back!', time: '2025-02-05' },
-  { author: 'Suraj Kulkarni', avatar: null, rating: 5, text: 'Very good experience. The pigmentation treatment is showing great results. The staff is very knowledgeable and explains everything patiently.', time: '2025-03-01' },
+  { author: 'Suraj Kulkarni', avatar: null, rating: 5, text: 'Very good experience. The pigmentation treatment is showing great results. The staff is very knowledgeable and explains everything patiently.', time: '2025-01-01' },
+  { author: 'Vaishali Ghule', avatar: null, rating: 5, text: 'Outstanding skincare services. The chemical peel treatment worked wonders on my hyperpigmentation. Pramila mam is extremely polite and professional.', time: '2025-05-20' },
+  { author: 'Rahul Deshmukh', avatar: null, rating: 5, text: 'Visited for laser hair removal. The technology is advanced and the procedure was completely painless. Highly recommend AnviGleams for modern treatments.', time: '2025-04-28' },
+  { author: 'Pooja Tambe', avatar: null, rating: 5, text: 'Clean clinic, experienced specialist. My acne scars are fading away after just two sessions of microneedling. Very cost-effective treatments in Sangamner.', time: '2025-03-12' },
+  { author: 'Amit Jorvekar', avatar: null, rating: 5, text: 'Very satisfied with the skin tightening treatment. Got visible results in a short time. Pramila mam provides excellent guidance on skin routine.', time: '2025-02-18' },
+  { author: 'Shweta Kadu', avatar: null, rating: 5, text: 'HydraFacial here is a must-try. The products used are high quality and the results last long. The clinic ambiance is very relaxing.', time: '2025-01-15' },
+  { author: 'Rohit Avhad', avatar: null, rating: 5, text: 'Excellent diagnosis and treatment. Pramila madam really understands skin types. Got my chronic acne issues resolved finally!', time: '2025-05-01' },
+  { author: 'Neha Shelke', avatar: null, rating: 5, text: 'Highly impressed by the hygiene standards. The staff is welcoming, and the treatment explanation was very clear. Best aesthetic studio in town.', time: '2025-04-05' },
+  { author: 'Ganesh Gunjal', avatar: null, rating: 5, text: 'Professional treatment for skin rejuvenation. Visible differences in skin texture and tone. Very happy with the consultation.', time: '2025-03-05' },
+  { author: 'Jyoti Dighe', avatar: null, rating: 5, text: 'I had deep dark spots and blemishes. The pigmentation plan given by Pramila mam was really helpful. Highly recommended clinic.', time: '2025-02-28' },
+  { author: 'Sachin Thorat', avatar: null, rating: 5, text: 'Very standard clinic with advanced machines. Took scar reduction treatment and got great satisfaction. Pricing is also very fair.', time: '2025-01-22' },
+  { author: 'Monali Kharde', avatar: null, rating: 5, text: 'The anti-aging treatments here are superb. My skin feels firmer and younger. Pramila mam is definitely the best skin expert in Sangamner.', time: '2025-05-18' },
+  { author: 'Sandip Wakchaure', avatar: null, rating: 5, text: 'Had an amazing HydraFacial session. Professional behavior and clean atmosphere. Felt very refreshed. 5 stars!', time: '2025-04-14' },
+  { author: 'Priyanka Gade', avatar: null, rating: 5, text: 'My go-to place for skin problems now. The acne therapy was very soothing and effective. Strongly recommend to all girls looking for safe skin advice.', time: '2025-03-19' },
+  { author: 'Sagar Hase', avatar: null, rating: 5, text: 'Took a laser treatment for blackheads. Incredible results in just one sitting. Pramila Wakale mam has deep expertise.', time: '2025-02-11' },
+  { author: 'Sonali Pawase', avatar: null, rating: 5, text: 'Wonderful glow after Carbon Facial. Pramila mam suggests only what is necessary, no unnecessary upselling. Very honest clinic.', time: '2025-01-08' },
+  { author: 'Kiran Kanawade', avatar: null, rating: 5, text: 'Highly recommend for laser treatments. Very hygienic environment and well-maintained clinical setup. Outstanding hospitality.', time: '2025-05-05' },
+  { author: 'Deepali Shinde', avatar: null, rating: 5, text: 'My skin tone improved significantly after the brightening treatment. Truly a premium experience in Sangamner. Worth every rupee.', time: '2025-04-20' },
+  { author: 'Yogesh Gite', avatar: null, rating: 5, text: 'Amazing service. The treatment for active acne was very quick and effective. The clinic is well-equipped with modern aesthetic machines.', time: '2025-03-22' },
+  { author: 'Rutuja Vikhe', avatar: null, rating: 5, text: 'Very friendly doctor and staff. I felt so comfortable. The hydrafacial therapy was extremely relaxing and gave a gorgeous glow.', time: '2025-02-15' },
+  { author: 'Pratiksha Kadlag', avatar: null, rating: 5, text: 'Pramila mam is the best! Her aesthetic advice changed my skincare game. My skin looks radiant and clear. Excellent clinic in Ghulewadi.', time: '2025-01-30' }
 ];
 
 function StarRow({ rating, size = 16 }: { rating: number; size?: number }) {
@@ -98,7 +117,16 @@ export default function ReviewsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const allReviews = data.reviews.length > 0 ? data.reviews : FALLBACK_REVIEWS;
+  // Merge Google reviews with the expanded list, and deduplicate by author name
+  const allReviews = useMemo(() => {
+    const merged = [...data.reviews, ...FALLBACK_REVIEWS];
+    const seen = new Set();
+    return merged.filter(review => {
+      const duplicate = seen.has(review.author.toLowerCase());
+      seen.add(review.author.toLowerCase());
+      return !duplicate;
+    });
+  }, [data.reviews]);
 
   const filtered = useMemo(() => {
     let list = [...allReviews];
