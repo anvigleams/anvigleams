@@ -77,19 +77,22 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* ── Full-bleed hero image — right side ── */}
+      {/* ── Full-bleed hero image — complete background ── */}
       <motion.div
         aria-hidden
+        className="hero-image-wrap"
+        animate={{ y: [0, -12, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         style={{
           position: 'absolute',
-          top: 0, right: 0,
-          width: '52%',
+          top: 0,
+          left: 0,
+          right: 0,
+          width: '100%',
           height: '100%',
           zIndex: 0,
           pointerEvents: 'none',
         }}
-        animate={{ y: [0, -12, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       >
         {/* Parallax layer */}
         <motion.div
@@ -104,24 +107,25 @@ export default function HeroSection() {
             alt=""
             fill
             priority
-            sizes="52vw"
-            style={{ objectFit: 'cover', objectPosition: 'center top', opacity: 0.42 }}
+            sizes="100vw"
+            className="hero-image"
+            style={{ objectFit: 'cover', objectPosition: 'right top' }}
           />
         </motion.div>
 
-        {/* Left gradient fade — blends image into white */}
+        {/* Left gradient fade — blends image into white/bg */}
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'linear-gradient(90deg, var(--bg) 0%, var(--bg) 10%, rgba(255,255,255,0.6) 30%, transparent 60%)',
+          background: 'linear-gradient(90deg, var(--bg) 0%, var(--bg) 15%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,0.3) 100%)',
         }} />
         {/* Top fade */}
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.5) 100%)',
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.4) 100%)',
         }} />
         {/* Soft edge blur on right */}
         <div style={{
-          position: 'absolute', top: 0, right: 0, bottom: 0, width: '25%',
+          position: 'absolute', top: 0, right: 0, bottom: 0, width: '20%',
           background: 'linear-gradient(-90deg, var(--bg) 0%, transparent 100%)',
         }} />
       </motion.div>
@@ -238,11 +242,20 @@ export default function HeroSection() {
           100% { left: 140%; }
         }
 
-        @media (max-width: 767px) {
-          section [aria-hidden] { opacity: 0.6; width: 100% !important; }
+        .hero-image {
+          opacity: 0.38;
+          transition: opacity 0.3s ease;
         }
-        @media (max-width: 480px) {
-          section [aria-hidden] { opacity: 0.35; }
+
+        @media (max-width: 991px) {
+          .hero-image {
+            opacity: 0.22;
+          }
+        }
+        @media (max-width: 767px) {
+          .hero-image {
+            opacity: 0.15;
+          }
         }
       `}</style>
     </section>
