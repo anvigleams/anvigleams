@@ -10,7 +10,7 @@ const ITEMS = [
 
 export default function Marquee() {
   // Duplicate items for seamless loop
-  const track = [...ITEMS, ...ITEMS, ...ITEMS];
+  const track = [...ITEMS, ...ITEMS];
 
   return (
     <div
@@ -58,11 +58,11 @@ export default function Marquee() {
 
       <style>{`
         .marquee-track {
-          animation: marquee-scroll 12s linear infinite;
+          animation: marquee-scroll 9s linear infinite;
         }
         @keyframes marquee-scroll {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-33.333%); }
+          from { transform: translate3d(0, 0, 0); }
+          to   { transform: translate3d(-50%, 0, 0); }
         }
         @media (prefers-reduced-motion: reduce) {
           .marquee-track { animation: none; }
