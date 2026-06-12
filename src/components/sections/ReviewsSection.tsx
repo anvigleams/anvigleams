@@ -169,14 +169,14 @@ export default function ReviewsSection() {
           style={{ textAlign: 'center', marginBottom: 56 }}
         >
           <span className="label" style={{ color: 'var(--rose)', marginBottom: 12, display: 'block' }}>
-            Trusted by Happy Clients
+            Real Reviews from Real Clients
           </span>
           <h2 className="display" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', color: 'var(--text-primary)', marginBottom: 8 }}>
-            A Sanctuary for <span style={{ color: 'var(--crimson)' }}>Radiant Skin</span>
+            Trusted by <span style={{ color: 'var(--crimson)' }}>Happy Clients</span>
           </h2>
           <span className="accent-line" style={{ margin: '0 auto' }} />
           <p style={{ fontFamily: 'var(--sans)', fontSize: '0.95rem', color: 'var(--text-secondary)', marginTop: 4 }}>
-            Real experiences from our wonderful clients across Sangamner &amp; beyond.
+            Real reviews from our wonderful clients.
           </p>
         </motion.div>
 

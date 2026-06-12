@@ -1,7 +1,9 @@
 'use client';
 
-import Image from 'next/image';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 
@@ -9,115 +11,240 @@ const PILLS = ['HydraFacial', 'Acne Treatment', 'Pigmentation', 'Skin Tightening
 
 export default function HeroSection() {
   const { t } = useTranslation();
+  const sectionRef = useRef<HTMLElement>(null);
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setMouse({
+      x: (e.clientX - rect.left) / rect.width - 0.5,
+      y: (e.clientY - rect.top) / rect.height - 0.5,
+    });
+  }, []);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    el.addEventListener('mousemove', handleMouseMove);
+    return () => el.removeEventListener('mousemove', handleMouseMove);
+  }, [handleMouseMove]);
 
   return (
-    <section style={{
-      background: 'var(--bg)',
-      padding: '56px 0 72px',
-      position: 'relative',
-      overflow: 'hidden',
-    }}>
-      {/* Subtle bg blobs */}
-      <div aria-hidden style={{ position: 'absolute', top: -80, right: -40, width: 420, height: 420, borderRadius: '50%', background: 'radial-gradient(circle, rgba(212,149,106,0.09) 0%, transparent 70%)', pointerEvents: 'none' }} />
-      <div aria-hidden style={{ position: 'absolute', bottom: -60, left: -60, width: 320, height: 320, borderRadius: '50%', background: 'radial-gradient(circle, rgba(196,30,58,0.05) 0%, transparent 70%)', pointerEvents: 'none' }} />
+    <section
+      ref={sectionRef}
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'var(--bg)',
+        padding: '72px 0 80px',
+        minHeight: '88vh',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      {/* ── Background blobs ── */}
+      <div aria-hidden style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
+        <motion.div
+          animate={{ x: [0, 30, 0], y: [0, -20, 0], scale: [1, 1.08, 1] }}
+          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+          style={{
+            position: 'absolute', top: '5%', right: '30%',
+            width: 480, height: 480, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(212,149,106,0.12) 0%, transparent 70%)',
+            filter: 'blur(60px)',
+          }}
+        />
+        <motion.div
+          animate={{ x: [0, -20, 0], y: [0, 30, 0], scale: [1, 1.06, 1] }}
+          transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
+          style={{
+            position: 'absolute', bottom: '5%', left: '5%',
+            width: 360, height: 360, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(196,30,58,0.07) 0%, transparent 70%)',
+            filter: 'blur(50px)',
+          }}
+        />
+        <motion.div
+          animate={{ x: [0, 15, 0], y: [0, -15, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+          style={{
+            position: 'absolute', top: '30%', right: '10%',
+            width: 220, height: 220, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%)',
+            filter: 'blur(40px)',
+          }}
+        />
+      </div>
 
-      <div className="container">
+      {/* ── Full-bleed hero image — right side ── */}
+      <motion.div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          top: 0, right: 0,
+          width: '52%',
+          height: '100%',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+        animate={{ y: [0, -12, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        {/* Parallax layer */}
+        <motion.div
+          style={{
+            position: 'absolute', inset: -20,
+            transform: `translate(${mouse.x * 18}px, ${mouse.y * 12}px)`,
+            transition: 'transform 0.6s ease',
+          }}
+        >
+          <Image
+            src="/hero-model.webp"
+            alt=""
+            fill
+            priority
+            sizes="52vw"
+            style={{ objectFit: 'cover', objectPosition: 'center top', opacity: 0.42 }}
+          />
+        </motion.div>
+
+        {/* Left gradient fade — blends image into white */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr auto',
-          gap: 48,
-          alignItems: 'center',
-        }}>
-          {/* Left — Text */}
-          <div style={{ maxWidth: 580 }}>
-            <div className="anim-fade-up" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '5px 14px', background: 'var(--rose-light)', border: '1px solid rgba(212,149,106,0.25)', borderRadius: 'var(--r-full)', marginBottom: 24 }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--rose)', display: 'inline-block' }} />
-              <span className="label" style={{ color: 'var(--rose)', fontSize: '0.65rem' }}>{t('hero.badge')}</span>
-            </div>
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(90deg, var(--bg) 0%, var(--bg) 10%, rgba(255,255,255,0.6) 30%, transparent 60%)',
+        }} />
+        {/* Top fade */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.5) 100%)',
+        }} />
+        {/* Soft edge blur on right */}
+        <div style={{
+          position: 'absolute', top: 0, right: 0, bottom: 0, width: '25%',
+          background: 'linear-gradient(-90deg, var(--bg) 0%, transparent 100%)',
+        }} />
+      </motion.div>
 
-            <h1 className="anim-fade-up-2 display" style={{ fontSize: 'clamp(2.6rem, 5.5vw, 4rem)', color: 'var(--text-primary)', marginBottom: 20 }}>
-              {t('hero.title_p1')}{' '}
-              <span style={{ color: 'var(--crimson)' }}>{t('hero.title_highlight')}</span>{' '}
-              {t('hero.title_p2')}
-            </h1>
+      {/* ── Content ── */}
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: 580 }}>
 
-            <p className="anim-fade-up-3" style={{ fontFamily: 'var(--sans)', fontSize: '1.02rem', color: 'var(--text-secondary)', lineHeight: 1.78, marginBottom: 34, maxWidth: 500 }}>
-              {t('hero.subtitle')}
-            </p>
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '5px 14px', background: 'var(--rose-light)', border: '1px solid rgba(212,149,106,0.25)', borderRadius: 'var(--r-full)', marginBottom: 24 }}
+          >
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--rose)', display: 'inline-block' }} />
+            <span className="label" style={{ color: 'var(--rose)', fontSize: '0.65rem' }}>{t('hero.badge')}</span>
+          </motion.div>
 
-            <div className="anim-fade-up-3" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 36 }}>
-              <Link href="/book" className="btn btn-primary" style={{ padding: '14px 30px', fontSize: '0.9rem' }}>
+          {/* Heading */}
+          <motion.h1
+            className="display"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            style={{ fontSize: 'clamp(2.6rem, 5.5vw, 4rem)', color: 'var(--text-primary)', marginBottom: 20 }}
+          >
+            {t('hero.title_p1')}{' '}
+            <span style={{ color: 'var(--crimson)' }}>{t('hero.title_highlight')}</span>{' '}
+            {t('hero.title_p2')}
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            style={{ fontFamily: 'var(--sans)', fontSize: '1.02rem', color: 'var(--text-secondary)', lineHeight: 1.78, marginBottom: 32, maxWidth: 480 }}
+          >
+            {t('hero.subtitle')}
+          </motion.p>
+
+          {/* CTA buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginBottom: 30 }}
+          >
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="/book"
+                className="btn btn-primary shimmer-btn"
+                style={{ padding: '15px 32px', fontSize: '0.92rem', position: 'relative', overflow: 'hidden' }}
+              >
                 <Sparkles size={16} /> {t('hero.book_now')}
               </Link>
-              <Link href="/treatments" className="btn btn-outline" style={{ padding: '13px 28px', fontSize: '0.9rem' }}>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link href="/treatments" className="btn btn-outline" style={{ padding: '14px 28px', fontSize: '0.92rem' }}>
                 {t('hero.explore')} <ArrowRight size={16} />
               </Link>
-            </div>
+            </motion.div>
+          </motion.div>
 
-            {/* Social proof row */}
-            <div className="anim-fade-up-3" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28, flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--r-full)', padding: '8px 14px', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
-                <div style={{ display: 'flex', gap: 2 }}>
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} style={{ color: '#FFB800', fontSize: '0.9rem' }}>★</span>
-                  ))}
-                </div>
-                <span style={{ fontFamily: 'var(--sans)', fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-primary)' }}>4.9</span>
-                <span style={{ fontFamily: 'var(--sans)', fontSize: '0.72rem', color: 'var(--text-muted)' }}>Google Rating</span>
+          {/* Social proof */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28, flexWrap: 'wrap' }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--r-full)', padding: '8px 16px', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+              <div style={{ display: 'flex', gap: 2 }}>
+                {[...Array(5)].map((_, i) => (<span key={i} style={{ color: '#FFB800', fontSize: '0.9rem' }}>★</span>))}
               </div>
-              <div style={{ fontFamily: 'var(--sans)', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
-                Trusted by <strong style={{ color: 'var(--crimson)' }}>500+ happy clients</strong>
-              </div>
+              <span style={{ fontFamily: 'var(--sans)', fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-primary)' }}>4.9</span>
+              <span style={{ fontFamily: 'var(--sans)', fontSize: '0.72rem', color: 'var(--text-muted)' }}>Google Rating</span>
             </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-              {PILLS.map((p) => (
-                <span key={p} style={{ padding: '5px 13px', background: 'var(--bg-soft)', border: '1px solid var(--border)', borderRadius: 'var(--r-full)', fontFamily: 'var(--sans)', fontSize: '0.77rem', fontWeight: 500, color: 'var(--text-secondary)' }}>
-                  {t(`treatment.${p.replace(/\s+/g, '_').toLowerCase()}`) || p}
-                </span>
-              ))}
+            <div style={{ fontFamily: 'var(--sans)', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
+              Trusted by <strong style={{ color: 'var(--crimson)' }}>500+ happy clients</strong>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right — Model photo */}
-          <div className="hide-mobile anim-float" style={{ position: 'relative' }}>
-            <div style={{
-              width: 320, height: 380,
-              borderRadius: 'var(--r-xl)',
-              overflow: 'hidden',
-              boxShadow: 'var(--shadow-lg)',
-              border: '3px solid #fff',
-              position: 'relative',
-            }}>
-              <Image
-                src="/hero-model.webp"
-                alt="Radiant skin — AnviGleams"
-                fill
-                style={{ objectFit: 'cover', objectPosition: 'center top' }}
-                priority
-                sizes="320px"
-              />
-            </div>
-            {/* Floating glow badge */}
-            <div style={{
-              position: 'absolute', bottom: -16, left: -20,
-              background: '#fff',
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--r-lg)',
-              padding: '12px 18px',
-              boxShadow: 'var(--shadow-md)',
-              display: 'flex', alignItems: 'center', gap: 10,
-            }}>
-              <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--crimson-light)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Sparkles size={16} color="var(--crimson)" />
-              </div>
-              <div>
-                <div style={{ fontFamily: 'var(--sans)', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-primary)' }}>{t('hero.no_login')}</div>
-                <div style={{ fontFamily: 'var(--sans)', fontSize: '0.65rem', color: 'var(--text-muted)' }}>{t('hero.book_in_2')}</div>
-              </div>
-            </div>
-          </div>
+          {/* Treatment pills */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+            style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}
+          >
+            {PILLS.map((p) => (
+              <span key={p} style={{ padding: '5px 13px', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)', border: '1px solid var(--border)', borderRadius: 'var(--r-full)', fontFamily: 'var(--sans)', fontSize: '0.77rem', fontWeight: 500, color: 'var(--text-secondary)' }}>
+                {t(`treatment.${p.replace(/\s+/g, '_').toLowerCase()}`) || p}
+              </span>
+            ))}
+          </motion.div>
         </div>
       </div>
+
+      {/* Shimmer keyframe */}
+      <style>{`
+        .shimmer-btn::after {
+          content: '';
+          position: absolute;
+          top: 0; left: -100%;
+          width: 60%; height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+          animation: shimmer-sweep 3s ease-in-out infinite;
+        }
+        @keyframes shimmer-sweep {
+          0%   { left: -100%; }
+          50%  { left: 140%; }
+          100% { left: 140%; }
+        }
+
+        @media (max-width: 767px) {
+          section [aria-hidden] { opacity: 0.6; width: 100% !important; }
+        }
+        @media (max-width: 480px) {
+          section [aria-hidden] { opacity: 0.35; }
+        }
+      `}</style>
     </section>
   );
 }
