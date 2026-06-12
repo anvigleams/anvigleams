@@ -12,6 +12,10 @@ const GALLERY_ITEMS = [
   { id: 2, type: 'image', src: '/images/image2.webp' },
   { id: 3, type: 'image', src: '/images/image3.webp' },
   { id: 4, type: 'image', src: '/images/image4.webp' },
+  { id: 5, type: 'image', src: '/images/image5.webp' },
+  { id: 6, type: 'image', src: '/images/image6.webp' },
+  { id: 7, type: 'image', src: '/images/image7.webp' },
+  { id: 8, type: 'image', src: '/images/image8.webp' },
 ];
 
 export default function GallerySection({ preview = false }: Props) {
