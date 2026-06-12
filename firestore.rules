@@ -5,15 +5,13 @@ service cloud.firestore {
 
     // ─── Helper Functions ───────────────────────────────────────────────────
 
-    // Only AnviGleams admin SDK (server) requests bypass security rules.
-    // All rules below apply to client-side (web) Firebase SDK.
+    // True if the request comes from a signed-in Firebase Auth user (admin app login).
+    function isAdmin() {
+      return request.auth != null;
+    }
 
     function isValidPhone(phone) {
       return phone is string && phone.matches('^\\+91[6-9][0-9]{9}$');
-    }
-
-    function isValidStatus(status) {
-      return status in ['pending', 'accepted', 'rejected', 'completed', 'missed', 'cancelled'];
     }
 
     function isValidBookingId(id) {
@@ -30,71 +28,100 @@ service cloud.firestore {
 
     // ─── Appointments ────────────────────────────────────────────────────────
 
-    match /appointments/{appointmentId} {
-      // Anyone can CREATE (book) an appointment if the data is valid.
+    match /appointments/{docId} {
+
+      // ✅ Admin (logged-in Flutter app) can do everything.
+      allow read, write: if isAdmin();
+
+      // ✅ Public: create a new booking with valid data.
       allow create: if
-        request.resource.data.keys().hasAll(['appointmentId', 'customerId', 'name', 'phone', 'treatment', 'date', 'time', 'status', 'notes', 'createdAt', 'updatedAt']) &&
+        !isAdmin() &&
+        request.resource.data.keys().hasAll([
+          'appointmentId', 'customerId', 'name', 'phone',
+          'treatment', 'date', 'time', 'status', 'notes',
+          'createdAt', 'updatedAt'
+        ]) &&
         isValidBookingId(request.resource.data.appointmentId) &&
         isValidPhone(request.resource.data.phone) &&
         isValidDate(request.resource.data.date) &&
         isValidTime(request.resource.data.time) &&
         request.resource.data.status == 'pending' &&
-        request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100 &&
-        request.resource.data.notes is string && request.resource.data.notes.size() <= 500 &&
-        request.resource.data.offlineEntry == false; // Only admin SDK can set offlineEntry=true
+        request.resource.data.name is string &&
+        request.resource.data.name.size() > 0 &&
+        request.resource.data.name.size() <= 100 &&
+        request.resource.data.notes is string &&
+        request.resource.data.notes.size() <= 500 &&
+        request.resource.data.offlineEntry == false;
 
-      // Anyone can READ their own appointment by phone number (for tracking).
-      // Clients can only query by their own phone (enforced at query level by server action).
-      allow read: if true;
+      // ✅ Public: read appointments (needed for phone/ID tracking and slot checking).
+      allow read: if !isAdmin();
 
-      // Only allow CLIENT to cancel their own PENDING appointment.
-      // All other status changes (accept, reject, complete) must go through admin SDK.
+      // ✅ Public: cancel only their own PENDING appointment.
+      //    Only 'status' and 'updatedAt' fields may change.
       allow update: if
+        !isAdmin() &&
         resource.data.status == 'pending' &&
         request.resource.data.status == 'cancelled' &&
         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt']);
 
-      // No client can delete appointments.
+      // ❌ Public cannot delete.
       allow delete: if false;
     }
 
     // ─── Customers ───────────────────────────────────────────────────────────
 
-    match /customers/{customerId} {
-      // Clients can create their own customer record during booking.
+    match /customers/{docId} {
+
+      // ✅ Admin: full access.
+      allow read, write: if isAdmin();
+
+      // ✅ Public: read customers to check for existing phone during booking upsert.
+      //    (The server action queries by phone to decide create vs. reuse.)
+      allow read: if !isAdmin();
+
+      // ✅ Public: create their own customer record during booking.
       allow create: if
+        !isAdmin() &&
         request.resource.data.keys().hasAll(['name', 'phone', 'createdAt', 'totalVisits']) &&
         isValidPhone(request.resource.data.phone) &&
-        request.resource.data.name is string && request.resource.data.name.size() > 0 &&
+        request.resource.data.name is string &&
+        request.resource.data.name.size() > 0 &&
         request.resource.data.totalVisits == 0;
 
-      // No client can read, update, or delete customer records.
-      // (Phone-based tracking reads appointments, not the customer document.)
-      allow read, update, delete: if false;
+      // ❌ Public cannot update or delete customer records.
+      allow update, delete: if false;
     }
 
     // ─── Payments ────────────────────────────────────────────────────────────
 
-    match /payments/{paymentId} {
-      // Only admin SDK can create or modify payment records.
-      // Clients can read their own payment summary (for the tracking page).
-      allow read: if true;
+    match /payments/{docId} {
+
+      // ✅ Admin: full access.
+      allow read, write: if isAdmin();
+
+      // ✅ Public: read payment info (shown on tracking page after completion).
+      allow read: if !isAdmin();
+
+      // ❌ Public cannot create, update, or delete payments.
       allow create, update, delete: if false;
     }
 
     // ─── Notifications ───────────────────────────────────────────────────────
 
-    match /notifications/{notificationId} {
-      allow read, write: if false;
+    match /notifications/{docId} {
+      // ✅ Admin only.
+      allow read, write: if isAdmin();
     }
 
-    // ─── Admin / Internal Collections ────────────────────────────────────────
+    // ─── Admin collection (if exists) ────────────────────────────────────────
 
-    match /admins/{adminId} {
-      allow read, write: if false;
+    match /admins/{docId} {
+      // ✅ Only an already-authenticated admin can read this.
+      allow read: if isAdmin();
+      allow write: if false; // Manage admins via Firebase Console only.
     }
 
-    // ─── Catch-All: Deny everything else ─────────────────────────────────────
+    // ─── Catch-all: deny everything not explicitly covered ────────────────────
 
     match /{document=**} {
       allow read, write: if false;
