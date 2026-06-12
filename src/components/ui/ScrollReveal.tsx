@@ -13,19 +13,19 @@ interface ScrollRevealProps {
 
 const variants: Record<string, Variants> = {
   up: {
-    hidden: { opacity: 0, y: 40, scale: 0.98 },
-    visible: { opacity: 1, y: 0, scale: 1 },
+    hidden: { opacity: 0, y: 15 },
+    visible: { opacity: 1, y: 0 },
   },
   left: {
-    hidden: { opacity: 0, x: -40, scale: 0.98 },
-    visible: { opacity: 1, x: 0, scale: 1 },
+    hidden: { opacity: 0, x: -15 },
+    visible: { opacity: 1, x: 0 },
   },
   right: {
-    hidden: { opacity: 0, x: 40, scale: 0.98 },
-    visible: { opacity: 1, x: 0, scale: 1 },
+    hidden: { opacity: 0, x: 15 },
+    visible: { opacity: 1, x: 0 },
   },
   scale: {
-    hidden: { opacity: 0, scale: 0.92 },
+    hidden: { opacity: 0, scale: 0.96 },
     visible: { opacity: 1, scale: 1 },
   },
 };

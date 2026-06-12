@@ -4,9 +4,20 @@ import { motion } from 'framer-motion';
 
 export default function BackgroundBlobs() {
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: -1, background: '#FFFDFB' }} aria-hidden>
+    <div className="fixed inset-0 overflow-hidden pointer-events-none background-blobs-container" style={{ zIndex: -1, background: '#FFFDFB' }} aria-hidden>
       
-      {/* Mesh Blob 1 — Blush Pink / Rose Gold (Top Right) */}
+      {/* Static premium background for mobile (replaces heavy blurs and animations) */}
+      <div
+        className="show-mobile-only"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(circle at 80% 10%, rgba(247,237,229,0.7) 0%, rgba(212,149,106,0.1) 40%, #FFFDFB 80%)',
+          zIndex: -2,
+        }}
+      />
+
+      {/* Mesh Blob 1 — Blush Pink / Rose Gold (Top Right - Desktop Only) */}
       <motion.div
         animate={{
           x: [0, 40, -20, 0],
@@ -32,7 +43,7 @@ export default function BackgroundBlobs() {
         }}
       />
 
-      {/* Mesh Blob 2 — Burgundy / Crimson (Middle Left) */}
+      {/* Mesh Blob 2 — Burgundy / Crimson (Middle Left - Desktop Only) */}
       <motion.div
         animate={{
           x: [0, -30, 30, 0],
@@ -58,7 +69,7 @@ export default function BackgroundBlobs() {
         }}
       />
 
-      {/* Mesh Blob 3 — Rose Gold / Gold (Bottom Right) */}
+      {/* Mesh Blob 3 — Rose Gold / Gold (Bottom Right - Desktop Only) */}
       <motion.div
         animate={{
           x: [0, 30, -30, 0],
@@ -83,7 +94,7 @@ export default function BackgroundBlobs() {
         }}
       />
 
-      {/* Ambient Glow 1 — Blush Pink (Center Screen) */}
+      {/* Ambient Glow 1 — Blush Pink (Center Screen - Desktop Only) */}
       <motion.div
         animate={{
           opacity: [0.15, 0.35, 0.15],
@@ -104,7 +115,7 @@ export default function BackgroundBlobs() {
         }}
       />
 
-      {/* Ambient Glow 2 — Delicate Gold (Top Left) */}
+      {/* Ambient Glow 2 — Delicate Gold (Top Left - Desktop Only) */}
       <motion.div
         animate={{
           opacity: [0.1, 0.25, 0.1],
@@ -126,6 +137,23 @@ export default function BackgroundBlobs() {
         }}
       />
 
+      <style>{`
+        .background-blobs-container > :not(.show-mobile-only) {
+          display: block;
+        }
+        .show-mobile-only {
+          display: none;
+        }
+
+        @media (max-width: 768px) {
+          .background-blobs-container > :not(.show-mobile-only) {
+            display: none !important;
+          }
+          .show-mobile-only {
+            display: block !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

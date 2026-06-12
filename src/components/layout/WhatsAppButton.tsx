@@ -39,9 +39,8 @@ export default function WhatsAppButton() {
       }}
     >
       {/* Pulse ring */}
-      <motion.div
-        animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
+      <div
+        className="wa-pulse-ring"
         style={{
           position: 'absolute',
           inset: 0,
@@ -74,6 +73,17 @@ export default function WhatsAppButton() {
           Chat with us 💬
         </div>
       </motion.div>
+
+      <style>{`
+        .wa-pulse-ring {
+          animation: wa-pulse 2.5s infinite ease-out;
+        }
+        @keyframes wa-pulse {
+          0% { transform: scale(1); opacity: 0.5; }
+          50% { transform: scale(1.35); opacity: 0; }
+          100% { transform: scale(1); opacity: 0.5; }
+        }
+      `}</style>
     </motion.a>
   );
 }

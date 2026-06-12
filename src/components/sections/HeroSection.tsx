@@ -227,6 +227,10 @@ export default function HeroSection() {
           .hero-image {
             opacity: 1.0;
           }
+          .hero-image-wrap {
+            transform: none !important;
+            animation: none !important;
+          }
         }
       `}</style>
     </section>
