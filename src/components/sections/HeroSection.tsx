@@ -54,7 +54,21 @@ export default function HeroSection() {
               </Link>
             </div>
 
-            {/* Treatment pills */}
+            {/* Social proof row */}
+            <div className="anim-fade-up-3" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--r-full)', padding: '8px 14px', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+                <div style={{ display: 'flex', gap: 2 }}>
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} style={{ color: '#FFB800', fontSize: '0.9rem' }}>★</span>
+                  ))}
+                </div>
+                <span style={{ fontFamily: 'var(--sans)', fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-primary)' }}>4.9</span>
+                <span style={{ fontFamily: 'var(--sans)', fontSize: '0.72rem', color: 'var(--text-muted)' }}>Google Rating</span>
+              </div>
+              <div style={{ fontFamily: 'var(--sans)', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
+                Trusted by <strong style={{ color: 'var(--crimson)' }}>500+ happy clients</strong>
+              </div>
+            </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
               {PILLS.map((p) => (
                 <span key={p} style={{ padding: '5px 13px', background: 'var(--bg-soft)', border: '1px solid var(--border)', borderRadius: 'var(--r-full)', fontFamily: 'var(--sans)', fontSize: '0.77rem', fontWeight: 500, color: 'var(--text-secondary)' }}>

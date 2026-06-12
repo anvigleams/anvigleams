@@ -5,6 +5,8 @@ import ExpertSection from '@/components/sections/ExpertSection';
 import ReviewsSection from '@/components/sections/ReviewsSection';
 import GallerySection from '@/components/sections/GallerySection';
 import BookingCTA from '@/components/sections/BookingCTA';
+import Marquee from '@/components/ui/Marquee';
+import WaveDivider from '@/components/ui/WaveDivider';
 import type { Metadata } from 'next';
 import SchemaOrg from '@/components/seo/SchemaOrg';
 
@@ -66,11 +68,18 @@ export default function HomePage() {
     <>
       <SchemaOrg schema={faqSchema} />
       <HeroSection />
+      <Marquee />
+      <WaveDivider topColor="var(--crimson-dark)" bottomColor="var(--bg)" height={48} />
       <AboutSection />
+      <WaveDivider topColor="var(--bg)" bottomColor="var(--bg-soft)" />
       <TreatmentsSection preview />
+      <WaveDivider topColor="var(--bg-soft)" bottomColor="var(--bg)" />
       <ExpertSection />
+      <WaveDivider topColor="var(--bg)" bottomColor="var(--bg-soft)" />
       <ReviewsSection />
+      <WaveDivider topColor="var(--bg-soft)" bottomColor="var(--bg)" flip />
       <GallerySection preview />
+      <WaveDivider topColor="var(--bg)" bottomColor="var(--crimson)" />
       <BookingCTA />
     </>
   );
